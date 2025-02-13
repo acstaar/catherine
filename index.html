@@ -187,7 +187,7 @@
 
     .final-message img {
       margin-top: 20px;
-      width: 150px; /* Adjust image size */
+      width: 300px; /* Adjust image size */
       border-radius: 10px;
 
     }
@@ -242,7 +242,6 @@
     const randomTexts = [
         "please, always stay hydrated!",
         "please, take care of yourself always!",
-        "ayaw? sige itabi mo, ako na!",
         "please, always prioritize your health!",
         "i appreciate you so much!",
         "i'll always be here, on the good days and bad ones.",
@@ -251,16 +250,25 @@
         "you're always enough!",
         "is it cringe ba if i say",
         "....",
-        "your presence makes the world seem a little brighter, even on the dullest days.",
-        "if thoughts were stars, you'd be the constellations i admire most.",
-        "in the quiet moments, i find myself thinking of you more than i expect.",
-        "sometimes, the simplest laugh from you is all i need to make the day feel complete.",
-        "if i could capture the way you make the room feel, it would be the most beautiful thing i've ever seen.",
-        "there's a calm in your presence that stays with me, even when you're not around.",
-        "it's funny how just the thought of you can change the way i see the world.",
-        "i don't need a grand gesture to know that moments spent with you are special.",
+        "your presence makes me feel like i've got loads of raisins in my mouth and no one's judging me for it :3",
+        "if thoughts were stars, you'd be the constellations i admire most hehe raaawr!",
+        "in the quiet moments, i find myself thinking of you more than i expect :D",
+        "sometimes, the simplest laugh from you is all i need to make my day complete >:3",
+        "if i could capture the way you make the room feel, it would be the most beautiful thing i've ever seen uwu",
+        "there's a calm in your presence that stays with me, even when you're not around ^-^",
+        "it's funny how just the thought of you can make me smile hehe :D",
+        "i don't need a hint to know that moments spent with you are special >.<",
         "sometimes, it's the quietest people who make the loudest impact on your heart(YOU IT'S YOU, YES YOU, IKAW!).",
-        "like a soft breeze on a warm day, you bring a sense of peace i didn't know i needed."
+        "like a soft breeze on a warm day, you bring a sense of peace i didn't know i needed hihi owo",
+        "it's all true.",
+        "....",
+        "your laugh is one of my favorite things.",
+        "i like the way you talk to me; it's so gentle and so sweet.",
+        "i respect how genuine and honest you are.",
+        "you're different.",
+        "how so?",
+        "just the way you areeee <3",
+
     ];
 
     let index = 0;
@@ -316,7 +324,7 @@
       finalMessageElement.innerHTML = `
 
         <span>HAPPY VALENTINE'S!</span>
-        <img src="https://media.tenor.com/99ocPzxp960AAAAj/sweet-rabbit.gif" alt=""/>
+        <img src="https://www.dropbox.com/scl/fi/97dbe4sl67rbtb94mf25z/rose-removebg-preview.png?rlkey=mecv3a3nbo25iry9jhdicpas2&st=lpazqx2p&dl=1" alt=""/>
       `;
       
       document.body.appendChild(finalMessageElement);
@@ -340,7 +348,7 @@
               typeText(centerTextElement, thirdText, function () {
                 // Show the fixed random texts sequentially
                 randomTexts.forEach((text, idx) => {
-                  setTimeout(() => displayTextOnce(text), idx * 7000); // Delay between each text
+                  setTimeout(() => displayTextOnce(text), idx * 6000); // Delay between each text
                 });
                 // After all random texts have been displayed, hide the third text and show the final message
                 setTimeout(() => {
@@ -349,13 +357,13 @@
                     centerTextElement.style.display = 'none'; // Hide third text
                     showFinalMessage(); // Show the final message with GIF
                   }, 2000); // Wait for fade-out to complete before hiding
-                }, randomTexts.length * 7000 + 2000); // Adjust to hide after the last random text
+                }, randomTexts.length * 6000 + 2000); // Adjust to hide after the last random text
               }, 50); // Start typing center text
             }, 500); // Delay before hiding second text and showing center text
           }, 100); // Faster typing for second text
         }, 500); // Delay before typing the second text
       }, 150); // Typing speed for first text
-    };
+    };a
   </script>
 
 </body>
