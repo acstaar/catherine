@@ -67,6 +67,23 @@
       }
     }
 
+    /* Blinking vertical bar effect */
+    @keyframes blink {
+      0% {
+        border-right-color: rgba(255, 255, 255, 0.75);
+      }
+      50% {
+        border-right-color: rgba(255, 255, 255, 0);
+      }
+      100% {
+        border-right-color: rgba(255, 255, 255, 0.75);
+      }
+    }
+
+    .typing-text, .typing-paragraph, .center-text {
+      animation: blink 1s step-end infinite;
+    }
+
     /* Typing Text Effect */
     .typing-text {
       font-size: 5vw;
@@ -172,6 +189,7 @@
       margin-top: 20px;
       width: 150px; /* Adjust image size */
       border-radius: 10px;
+
     }
   </style>
 </head>
@@ -179,8 +197,7 @@
   
   <!-- Add audio player -->
   <audio id="backgroundAudio" autoplay >
-    <source src="https://www.dropbox.com/scl/fi/t9lb89jphk1akt9btxs2s/Elvis-Presley-Cant-Help-Falling-in-Love-Lyrics.mp3?rlkey=wp9mhv220ttzqqdcrhpgh18bv&st=v3k2domm&dl=1
-    " type="audio/mp3">
+    <source src="https://www.dropbox.com/scl/fi/t9lb89jphk1akt9btxs2s/Elvis-Presley-Cant-Help-Falling-in-Love-Lyrics.mp3?rlkey=wp9mhv220ttzqqdcrhpgh18bv&st=v3k2domm&dl=1" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
@@ -327,8 +344,11 @@
                 });
                 // After all random texts have been displayed, hide the third text and show the final message
                 setTimeout(() => {
-                  centerTextElement.style.display = 'none'; // Hide third text after all random texts finish
-                  showFinalMessage(); // Show the final message with GIF
+                  centerTextElement.classList.add("fade-out"); // Apply fade-out animation to third text
+                  setTimeout(() => {
+                    centerTextElement.style.display = 'none'; // Hide third text
+                    showFinalMessage(); // Show the final message with GIF
+                  }, 2000); // Wait for fade-out to complete before hiding
                 }, randomTexts.length * 7000 + 2000); // Adjust to hide after the last random text
               }, 50); // Start typing center text
             }, 500); // Delay before hiding second text and showing center text
