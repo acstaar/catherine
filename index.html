@@ -197,9 +197,20 @@
   
   <!-- Add audio player -->
   <audio id="backgroundAudio" autoplay muted>
-    <source src="https://www.dropbox.com/scl/fi/t9lb89jphk1akt9btxs2s/Elvis-Presley-Cant-Help-Falling-in-Love-Lyrics.mp3?rlkey=wp9mhv220ttzqqdcrhpgh18bv&st=v3k2domm&raw=1" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+  <source src="https://raw.githubusercontent.com/acstaar/catherine/main/audio/Elvis Presley  Cant Help Falling in Love Lyrics.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  window.addEventListener("load", () => {
+    const audio = document.getElementById('backgroundAudio');
+    setTimeout(() => {
+      audio.muted = false;
+      audio.play().catch(e => console.warn("Autoplay blocked:", e));
+    }, 1000);
+  });
+</script>
+
 
   <!-- Typing text elements -->
   <div class="typing-text" id="typingText"></div>
@@ -324,7 +335,7 @@
       finalMessageElement.innerHTML = `
 
         <span>FOR YOU PRETTY!</span>
-        <img src="https://www.dropbox.com/scl/fi/97dbe4sl67rbtb94mf25z/rose-removebg-preview.png?rlkey=mecv3a3nbo25iry9jhdicpas2&st=lpazqx2p&raw=1" alt="Rose" />
+        <img src="https://raw.githubusercontent.com/your-username/your-repo/main/images/rose.png" alt="Rose"/>
       `;
       
       document.body.appendChild(finalMessageElement);
