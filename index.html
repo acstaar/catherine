@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Catherine</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> <!-- Added a fun font for final message -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"/>
   <style>
-    /* General Page Style */
     body, html {
       margin: 0;
       padding: 0;
@@ -23,7 +22,6 @@
       flex-direction: column;
     }
 
-    /* Interactive Heart Particles */
     .particle {
       position: absolute;
       width: 10px;
@@ -35,7 +33,6 @@
       opacity: 0.7;
     }
 
-    /* Create Heart Shape using pseudo-elements */
     .particle::before,
     .particle::after {
       content: '';
@@ -46,256 +43,165 @@
       border-radius: 50%;
     }
 
-    .particle::before {
-      left: 0;
-      top: -5px;
-    }
-
-    .particle::after {
-      top: 0;
-      left: 5px;
-    }
+    .particle::before { left: 0; top: -5px; }
+    .particle::after { top: 0; left: 5px; }
 
     @keyframes particleAnimation {
-      0% {
-        opacity: 1;
-        transform: scale(1) rotate(315deg);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0) rotate(315deg);
-      }
+      0% { opacity: 1; transform: scale(1) rotate(315deg); }
+      100% { opacity: 0; transform: scale(0) rotate(315deg); }
     }
 
-    /* Blinking vertical bar effect */
     @keyframes blink {
-      0% {
-        border-right-color: rgba(255, 255, 255, 0.75);
-      }
-      50% {
-        border-right-color: rgba(255, 255, 255, 0);
-      }
-      100% {
-        border-right-color: rgba(255, 255, 255, 0.75);
-      }
+      0%, 100% { border-right-color: rgba(255, 255, 255, 0.75); }
+      50% { border-right-color: rgba(255, 255, 255, 0); }
     }
 
     .typing-text, .typing-paragraph, .center-text {
       animation: blink 1s step-end infinite;
     }
 
-    /* Typing Text Effect */
     .typing-text {
-      font-size: 5vw;
-      color: #fff;
-      display: inline-block;
+      font-size: clamp(24px, 5vw, 48px);
       border-right: 3px solid rgba(255, 255, 255, 0.75);
-      padding-right: 5px;
       white-space: nowrap;
       overflow: hidden;
+      padding-right: 5px;
     }
 
-    /* Paragraph for second typed text */
-    .typing-paragraph {
-      font-size: 3vw;
-      color: #fff;
-      display: inline-block;
-      border-right: 3px solid rgba(255, 255, 255, 0.75);
-      padding-right: 5px;
-      white-space: nowrap;
-      overflow: hidden;
+    .typing-paragraph, .center-text {
+      font-size: clamp(20px, 3vw, 36px);
       margin-top: 20px;
-    }
-
-    /* Centered bottom text */
-    .center-text {
-      font-size: 2.5vw;
-      color: #fff;
-      display: inline-block;
-      border-right: 3px solid rgba(255, 255, 255, 0.75);
-      padding-right: 5px;
       white-space: nowrap;
       overflow: hidden;
-      margin-top: 20px;
+      border-right: 3px solid rgba(255, 255, 255, 0.75);
+      padding-right: 5px;
     }
 
-    /* Fade-in and fade-out animation */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
+    .fade-in { animation: fadeIn 2s forwards; }
+    .fade-out { animation: fadeOut 2s forwards; }
 
-    .fade-in {
-      animation: fadeIn 2s forwards;
-    }
-
-    .fade-out {
-      animation: fadeOut 2s forwards;
-    }
-
-    /* Updated random text to prevent overflow */
     .random-text {
       position: absolute;
       font-size: 1.2vw;
       color: #fff;
-      padding: 10px;
-      white-space: normal; /* Allow text to wrap */
-      max-width: 60vw; /* Limit width to prevent overflow */
-      overflow: hidden;
+      max-width: 60vw;
       word-wrap: break-word;
-      text-align: center;
       opacity: 0;
+      text-align: center;
     }
 
-    /* Adjusting random text appearance */
-    .random-text span {
-      display: inline-block;
-      width: 100%;
-      word-wrap: break-word;
-    }
-
-    /* Styling for final message */
     .final-message {
-      font-family: 'Amatic SC', cursive; /* Applied a fun font */
+      font-family: 'Amatic SC', cursive;
       font-size: 6vw;
       color: #ff66cc;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      opacity: 0;
       animation: fadeIn 3s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .final-message img {
       margin-top: 20px;
-      width: 300px; /* Adjust image size */
+      width: 300px;
       border-radius: 10px;
+    }
 
+    #startButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      font-size: 2rem;
+      background-color: #ff66cc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 9999;
     }
   </style>
 </head>
 <body>
-  
-  <!-- Add audio player -->
-  <audio id="backgroundAudio" autoplay muted>
-  <source src="https://raw.githubusercontent.com/acstaar/catherine/main/audio/elvis.mp3" type="audio/mp3">
-  Your browser does not support the audio element.
-</audio>
 
-<script>
-  window.addEventListener("load", () => {
-    const audio = document.getElementById('backgroundAudio');
-    setTimeout(() => {
-      audio.muted = false;
-      audio.play().catch(e => console.warn("Autoplay blocked:", e));
-    }, 1000);
-  });
-</script>
+  <audio id="backgroundAudio">
+    <source src="https://raw.githubusercontent.com/acstaar/catherine/main/audio/elvis.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 
+  <button id="startButton">Start</button>
 
-  <!-- Typing text elements -->
   <div class="typing-text" id="typingText"></div>
   <p class="typing-paragraph" id="typingParagraph"></p>
-
-  <!-- Centered text for typing effect -->
   <div class="center-text" id="centerText"></div>
 
   <script>
-    // Set volume to 20%
-    document.getElementById('backgroundAudio').volume = 0.05;
-
-    // Function to create random heart particles
-    function createHeartParticle() {
-      const particle = document.createElement("div");
-      particle.classList.add("particle");
-
-      // Randomly position the particle
-      const xPos = Math.random() * window.innerWidth;
-      const yPos = Math.random() * window.innerHeight;
-
-      particle.style.left = `${xPos}px`;
-      particle.style.top = `${yPos}px`;
-
-      document.body.appendChild(particle);
-
-      // Remove particle after animation ends (2 seconds)
-      setTimeout(() => {
-        particle.remove();
-      }, 2000);
-    }
-
-    // Create heart particles continuously at regular intervals
-    setInterval(createHeartParticle, 50); // Creates a new particle every 50ms
-
-    // Typing effect function
     const firstText = "Hi, Cath!";
     const secondText = "I know you're probably busy but-";
     const thirdText = "I just want you to know...";
     const randomTexts = [
-        "please, always stay hydrated!",
-        "please, take care of yourself always!",
-        "please, always prioritize your health!",
-        "i appreciate you so much!",
-        "i'll always be here, on the good days and bad ones.",
-        "i'll listen to all your rants.",
-        "you're so precious, darling!",
-        "you're always enough!",
-        "is it cringe ba if i say",
-        "....",
-        "your presence makes me feel safe and secure! :3",
-        "if thoughts were stars, you'd be the constellations i admire most hehe raaawr!",
-        "in the quiet moments, i find myself thinking of you more than i expect :D",
-        "sometimes, the simplest laugh from you is all i need to make my day complete >:3",
-        "if i could capture the way you make the room feel, it would be the most beautiful thing i've ever seen uwu",
-        "if your eyes brings the ocean, then i'd rather still stare at it knowing that i would drown ^-^",
-        "it's funny how just the thought of you can make me smile hehe :D",
-        "i don't need a hint to know that moments spent with you are special >.<",
-        "sometimes, it's the quietest people who make the loudest impact on your heart(YOU IT'S YOU, YES YOU, IKAW!).",
-        "like a soft breeze on a warm day, you bring a sense of peace i didn't know i needed hihi owo",
-        "it's all true.",
-        "....",
-        "your eyes, your laugh are my most favorite things.",
-        "i like the way you talk to me; it's so gentle and so sweet.",
-        "i respect how genuine and honest you are.",
-        "you're different.",
-        "how so?",
-        "just the way you areeee <3",
-
+      "please, always stay hydrated!",
+      "please, take care of yourself always!",
+      "please, always prioritize your health!",
+      "i appreciate you so much!",
+      "i'll always be here, on the good days and bad ones.",
+      "i'll listen to all your rants.",
+      "you're so precious, darling!",
+      "you're always enough!",
+      "is it cringe ba if i say",
+      "....",
+      "your presence makes me feel safe and secure! :3",
+      "if thoughts were stars, you'd be the constellations i admire most hehe raaawr!",
+      "in the quiet moments, i find myself thinking of you more than i expect :D",
+      "sometimes, the simplest laugh from you is all i need to make my day complete >:3",
+      "if i could capture the way you make the room feel, it would be the most beautiful thing i've ever seen uwu",
+      "if your eyes brings the ocean, then i'd rather still stare at it knowing that i would drown ^-^",
+      "it's funny how just the thought of you can make me smile hehe :D",
+      "i don't need a hint to know that moments spent with you are special >.<",
+      "sometimes, it's the quietest people who make the loudest impact on your heart(YOU IT'S YOU, YES YOU, IKAW!).",
+      "like a soft breeze on a warm day, you bring a sense of peace i didn't know i needed hihi owo",
+      "it's all true.",
+      "....",
+      "your eyes, your laugh are my most favorite things.",
+      "i like the way you talk to me; it's so gentle and so sweet.",
+      "i respect how genuine and honest you are.",
+      "you're different.",
+      "how so?",
+      "just the way you areeee <3"
     ];
 
-    let index = 0;
     const typingElement = document.getElementById("typingText");
     const paragraphElement = document.getElementById("typingParagraph");
     const centerTextElement = document.getElementById("centerText");
 
-    // Function to simulate typing effect
+    function createHeartParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      const xPos = Math.random() * window.innerWidth;
+      const yPos = Math.random() * window.innerHeight;
+      particle.style.left = `${xPos}px`;
+      particle.style.top = `${yPos}px`;
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 2000);
+    }
+
     function typeText(element, text, callback, speed) {
       let i = 0;
-      element.textContent = ""; // Clear previous text
+      element.textContent = "";
       function typing() {
         if (i < text.length) {
           element.textContent += text.charAt(i);
           i++;
-          setTimeout(typing, speed); // Typing speed adjustable here
+          setTimeout(typing, speed);
         } else if (callback) {
           callback();
         }
@@ -303,79 +209,71 @@
       typing();
     }
 
-    // Function to display a text with fade-in effect
     function displayTextOnce(text) {
       const textElement = document.createElement("div");
       textElement.classList.add("random-text", "fade-in");
-      textElement.innerHTML = `<span>${text}</span>`; // Wrap text in span for better word wrapping
-
-      // Ensure text stays within the window bounds
-      const maxWidth = window.innerWidth - 20; // Add padding to avoid overflow
-      const maxHeight = window.innerHeight - 20; // Add padding to avoid overflow
-      const xPos = Math.random() * (maxWidth - textElement.offsetWidth);
-      const yPos = Math.random() * (maxHeight - textElement.offsetHeight);
-
+      textElement.innerHTML = `<span>${text}</span>`;
+      const xPos = Math.random() * (window.innerWidth - 300);
+      const yPos = Math.random() * (window.innerHeight - 100);
       textElement.style.left = `${xPos}px`;
       textElement.style.top = `${yPos}px`;
-
       document.body.appendChild(textElement);
-
-      // After 6 seconds, fade out and remove the text
       setTimeout(() => {
         textElement.classList.remove("fade-in");
         textElement.classList.add("fade-out");
-        setTimeout(() => textElement.remove(), 2000); // Remove after fade out
-      }, 6000); // Wait 6 seconds before fading out
+        setTimeout(() => textElement.remove(), 2000);
+      }, 6000);
     }
 
-    // Function to show the final message with GIF
     function showFinalMessage() {
       const finalMessageElement = document.createElement("div");
       finalMessageElement.classList.add("final-message");
       finalMessageElement.innerHTML = `
-
         <span>FOR YOU PRETTY!</span>
-        <img src="https://raw.githubusercontent.com/acstaar/catherine/main/images/IMG_2706-removebg-preview.png" alt="Rose"/>
+        <img src="https://raw.githubusercontent.com/acstaar/catherine/main/images/IMG_2706-removebg-preview.png" alt="A pink rose"/>
       `;
-      
       document.body.appendChild(finalMessageElement);
-
-      // Fade out the final message after some time (optional)
       setTimeout(() => {
         finalMessageElement.classList.remove("fade-in");
         finalMessageElement.classList.add("fade-out");
-        setTimeout(() => finalMessageElement.remove(), 2000); // Remove after fade out
-      }, 225000); // Wait 5 seconds before fading out
+        setTimeout(() => finalMessageElement.remove(), 2000);
+      }, 225000);
     }
 
-    // Start typing the first text
-    window.onload = function () {
-      typeText(typingElement, firstText, function () {
+    function startSequence() {
+      setInterval(createHeartParticle, 50);
+      typeText(typingElement, firstText, () => {
         setTimeout(() => {
-          typingElement.style.display = 'none'; // Hide the first text after typing
-          typeText(paragraphElement, secondText, function () {
+          typingElement.style.display = 'none';
+          typeText(paragraphElement, secondText, () => {
             setTimeout(() => {
-              paragraphElement.style.display = 'none'; // Hide second text
-              typeText(centerTextElement, thirdText, function () {
-                // Show the fixed random texts sequentially
+              paragraphElement.style.display = 'none';
+              typeText(centerTextElement, thirdText, () => {
                 randomTexts.forEach((text, idx) => {
-                  setTimeout(() => displayTextOnce(text), idx * 6000); // Delay between each text
+                  setTimeout(() => displayTextOnce(text), idx * 6000);
                 });
-                // After all random texts have been displayed, hide the third text and show the final message
                 setTimeout(() => {
-                  centerTextElement.classList.add("fade-out"); // Apply fade-out animation to third text
+                  centerTextElement.classList.add("fade-out");
                   setTimeout(() => {
-                    centerTextElement.style.display = 'none'; // Hide third text
-                    showFinalMessage(); // Show the final message with GIF
-                  }, 2000); // Wait for fade-out to complete before hiding
-                }, randomTexts.length * 6000 + 2000); // Adjust to hide after the last random text
-              }, 50); // Start typing center text
-            }, 500); // Delay before hiding second text and showing center text
-          }, 100); // Faster typing for second text
-        }, 500); // Delay before typing the second text
-      }, 150); // Typing speed for first text
-    };
-  </script>
+                    centerTextElement.style.display = 'none';
+                    showFinalMessage();
+                  }, 2000);
+                }, randomTexts.length * 6000 + 2000);
+              }, 50);
+            }, 500);
+          }, 100);
+        }, 500);
+      }, 150);
+    }
 
+    document.getElementById("startButton").addEventListener("click", () => {
+      const audio = document.getElementById("backgroundAudio");
+      audio.muted = false;
+      audio.volume = 0.05;
+      audio.play().catch(e => console.warn("Audio play failed:", e));
+      document.getElementById("startButton").style.display = "none";
+      startSequence();
+    });
+  </script>
 </body>
 </html>
