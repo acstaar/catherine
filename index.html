@@ -1,279 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catherine</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"/>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background-color: #111;
-      font-family: 'Roboto', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-      flex-direction: column;
-    }
-
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: red;
-      transform: rotate(45deg);
-      pointer-events: none;
-      animation: particleAnimation 2s infinite;
-      opacity: 0.7;
-    }
-
-    .particle::before,
-    .particle::after {
-      content: '';
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: red;
-      border-radius: 50%;
-    }
-
-    .particle::before { left: 0; top: -5px; }
-    .particle::after { top: 0; left: 5px; }
-
-    @keyframes particleAnimation {
-      0% { opacity: 1; transform: scale(1) rotate(315deg); }
-      100% { opacity: 0; transform: scale(0) rotate(315deg); }
-    }
-
-    @keyframes blink {
-      0%, 100% { border-right-color: rgba(255, 255, 255, 0.75); }
-      50% { border-right-color: rgba(255, 255, 255, 0); }
-    }
-
-    .typing-text, .typing-paragraph, .center-text {
-      animation: blink 1s step-end infinite;
-    }
-
-    .typing-text {
-      font-size: clamp(24px, 5vw, 48px);
-      border-right: 3px solid rgba(255, 255, 255, 0.75);
-      white-space: nowrap;
-      overflow: hidden;
-      padding-right: 5px;
-    }
-
-    .typing-paragraph, .center-text {
-      font-size: clamp(20px, 3vw, 36px);
-      margin-top: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid rgba(255, 255, 255, 0.75);
-      padding-right: 5px;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-
-    .fade-in { animation: fadeIn 2s forwards; }
-    .fade-out { animation: fadeOut 2s forwards; }
-
-    .random-text {
-      position: absolute;
-      font-size: 1.2vw;
-      color: #fff;
-      max-width: 60vw;
-      word-wrap: break-word;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Audio + Typing Demo</title>
+<style>
+  body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #startButton {
+    font-size: 24px;
+    padding: 12px 30px;
+    background: #ff66cc;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  #typingText {
+    margin-top: 40px;
+    font-size: 32px;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 3s steps(12) forwards, blink 1s step-end infinite;
+  }
+  @keyframes typing {
+    to { width: 12ch; }
+  }
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+  .heart {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    transform: rotate(45deg);
+    animation: floatUp 2s linear forwards;
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
+  }
+  .heart::before {
+    top: -7.5px;
+    left: 0;
+  }
+  .heart::after {
+    top: 0;
+    left: 7.5px;
+  }
+  @keyframes floatUp {
+    to {
+      transform: translateY(-150px) rotate(45deg);
       opacity: 0;
-      text-align: center;
     }
-
-    .final-message {
-      font-family: 'Amatic SC', cursive;
-      font-size: 6vw;
-      color: #ff66cc;
-      text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      animation: fadeIn 3s forwards;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .final-message img {
-      margin-top: 20px;
-      width: 300px;
-      border-radius: 10px;
-    }
-
-    #startButton {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px 40px;
-      font-size: 2rem;
-      background-color: #ff66cc;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      z-index: 9999;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <audio id="backgroundAudio">
-    <source src="https://raw.githubusercontent.com/acstaar/catherine/main/elvis.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+<button id="startButton">Start</button>
+<div id="typingText"></div>
 
-  <button id="startButton">Start</button>
+<audio id="audio" src="https://raw.githubusercontent.com/acstaar/catherine/main/audio/elvis.mp3" preload="auto"></audio>
 
-  <div class="typing-text" id="typingText"></div>
-  <p class="typing-paragraph" id="typingParagraph"></p>
-  <div class="center-text" id="centerText"></div>
+<script>
+  const startButton = document.getElementById('startButton');
+  const typingText = document.getElementById('typingText');
+  const audio = document.getElementById('audio');
 
-  <script>
-    const firstText = "Hi, Cath!";
-    const secondText = "I know you're probably busy but-";
-    const thirdText = "I just want you to know...";
-    const randomTexts = [
-      "please, always stay hydrated!",
-      "please, take care of yourself always!",
-      "please, always prioritize your health!",
-      "i appreciate you so much!",
-      "i'll always be here, on the good days and bad ones.",
-      "i'll listen to all your rants.",
-      "you're so precious, darling!",
-      "you're always enough!",
-      "is it cringe ba if i say",
-      "....",
-      "your presence makes me feel safe and secure! :3",
-      "if thoughts were stars, you'd be the constellations i admire most hehe raaawr!",
-      "in the quiet moments, i find myself thinking of you more than i expect :D",
-      "sometimes, the simplest laugh from you is all i need to make my day complete >:3",
-      "if i could capture the way you make the room feel, it would be the most beautiful thing i've ever seen uwu",
-      "if your eyes brings the ocean, then i'd rather still stare at it knowing that i would drown ^-^",
-      "it's funny how just the thought of you can make me smile hehe :D",
-      "i don't need a hint to know that moments spent with you are special >.<",
-      "sometimes, it's the quietest people who make the loudest impact on your heart(YOU IT'S YOU, YES YOU, IKAW!).",
-      "like a soft breeze on a warm day, you bring a sense of peace i didn't know i needed hihi owo",
-      "it's all true.",
-      "....",
-      "your eyes, your laugh are my most favorite things.",
-      "i like the way you talk to me; it's so gentle and so sweet.",
-      "i respect how genuine and honest you are.",
-      "you're different.",
-      "how so?",
-      "just the way you areeee <3"
-    ];
+  startButton.onclick = () => {
+    // Play audio on user interaction
+    audio.volume = 0.05;
+    audio.play().catch(e => console.warn('Audio play error:', e));
 
-    const typingElement = document.getElementById("typingText");
-    const paragraphElement = document.getElementById("typingParagraph");
-    const centerTextElement = document.getElementById("centerText");
+    // Hide start button
+    startButton.style.display = 'none';
 
-    function createHeartParticle() {
-      const particle = document.createElement("div");
-      particle.classList.add("particle");
-      const xPos = Math.random() * window.innerWidth;
-      const yPos = Math.random() * window.innerHeight;
-      particle.style.left = `${xPos}px`;
-      particle.style.top = `${yPos}px`;
-      document.body.appendChild(particle);
-      setTimeout(() => particle.remove(), 2000);
-    }
+    // Show typing text with animation
+    typingText.textContent = "Hi, Cath!";
 
-    function typeText(element, text, callback, speed) {
-      let i = 0;
-      element.textContent = "";
-      function typing() {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-          setTimeout(typing, speed);
-        } else if (callback) {
-          callback();
-        }
-      }
-      typing();
-    }
+    // Create heart particles every 300ms for 3 seconds
+    let heartsCount = 0;
+    const interval = setInterval(() => {
+      createHeart();
+      heartsCount++;
+      if (heartsCount > 10) clearInterval(interval);
+    }, 300);
+  };
 
-    function displayTextOnce(text) {
-      const textElement = document.createElement("div");
-      textElement.classList.add("random-text", "fade-in");
-      textElement.innerHTML = `<span>${text}</span>`;
-      const xPos = Math.random() * (window.innerWidth - 300);
-      const yPos = Math.random() * (window.innerHeight - 100);
-      textElement.style.left = `${xPos}px`;
-      textElement.style.top = `${yPos}px`;
-      document.body.appendChild(textElement);
-      setTimeout(() => {
-        textElement.classList.remove("fade-in");
-        textElement.classList.add("fade-out");
-        setTimeout(() => textElement.remove(), 2000);
-      }, 6000);
-    }
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = (window.innerWidth / 2 + (Math.random() * 200 - 100)) + 'px';
+    heart.style.top = (window.innerHeight / 2 + (Math.random() * 50 - 25)) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+  }
+</script>
 
-    function showFinalMessage() {
-      const finalMessageElement = document.createElement("div");
-      finalMessageElement.classList.add("final-message");
-      finalMessageElement.innerHTML = `
-        <span>FOR YOU PRETTY!</span>
-        <img src="https://raw.githubusercontent.com/acstaar/catherine/main/IMG_2706-removebg-preview.png" alt=""/>
-      `;
-      document.body.appendChild(finalMessageElement);
-      setTimeout(() => {
-        finalMessageElement.classList.remove("fade-in");
-        finalMessageElement.classList.add("fade-out");
-        setTimeout(() => finalMessageElement.remove(), 2000);
-      }, 225000);
-    }
-
-    function startSequence() {
-      setInterval(createHeartParticle, 50);
-      typeText(typingElement, firstText, () => {
-        setTimeout(() => {
-          typingElement.style.display = 'none';
-          typeText(paragraphElement, secondText, () => {
-            setTimeout(() => {
-              paragraphElement.style.display = 'none';
-              typeText(centerTextElement, thirdText, () => {
-                randomTexts.forEach((text, idx) => {
-                  setTimeout(() => displayTextOnce(text), idx * 6000);
-                });
-                setTimeout(() => {
-                  centerTextElement.classList.add("fade-out");
-                  setTimeout(() => {
-                    centerTextElement.style.display = 'none';
-                    showFinalMessage();
-                  }, 2000);
-                }, randomTexts.length * 6000 + 2000);
-              }, 50);
-            }, 500);
-          }, 100);
-        }, 500);
-      }, 150);
-    }
-
-    document.getElementById("startButton").addEventListener("click", () => {
-      const audio = document.getElementById("backgroundAudio");
-      audio.muted = false;
-      audio.volume = 0.05;
-      audio.play().catch(e => console.warn("Audio play failed:", e));
-      document.getElementById("startButton").style.display = "none";
-      startSequence();
-    });
-  </script>
 </body>
 </html>
